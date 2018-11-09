@@ -1,16 +1,56 @@
-# Apostrophe Boilerplate v2.x
+# CMS Example
 
-Apostrophe Boilerplate is a minimal starting point for [Apostrophe 2](https://github.com/punkave/apostrophe) projects.
+Based on Apostrophe Boilerplate v2.x, it's just a Node.js cms to use as sample project.
 
-To get started, we recommend taking a look at [our guide to creating your first project](http://apostrophecms.org/docs/tutorials/getting-started/creating-your-first-project.html). You could also take a look at [Apostrophe's CLI](https://github.com/punkave/apostrophe) or simply fork this repository.
+> Apostrophe Boilerplate is a minimal starting point for [Apostrophe 2](https://github.com/punkave/apostrophe) projects.
 
-Once you have a local copy of this project to work from, make sure to install its dependencies with `npm install`. With Apostrophe installed, the first thing to do create an admin user account so you're able to log into the CMS. Run the following command (this will prompt you for a password).
+# TL;DR;
 
 ```bash
-node app.js apostrophe-users:add admin admin
+$ curl -LO https://raw.githubusercontent.com/fjagugar/blog-example/master/docker-compose.yml
+$ docker-compose up
 ```
 
-Now you're all set! Just run `node app.js` to start up the local server and head to `localhost:3000` in your web browser.
+# How to use run the CMS?
+
+The recommended way to run the CMS is using Docker Compose using the following `docker-compose.yml` template:
+
+```yaml
+version: '2'
+
+services:
+  mongodb:
+    image: 'bitnami/mongodb'
+
+  node:
+    tty: true
+    image: 'bitnami/node:latest'
+    command: sh -c 'npm install && node app.js'
+    environment:
+      APOS_MONGODB_URI: 'mongodb://mongodb:27017'
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    depends_on:
+      - mongodb
+```
+
+Launch the containers using:
+
+```bash
+$ docker-compose up -d
+```
+
+Once the CMS is running, you need create an admin user account so you're able to log into it. Run the command below to do so(this will prompt you for a password):
+
+```bash
+docker-compose exec node node app.js apostrophe-users:add admin admin
+```
+
+# Configuration
+
+- Use the environment variable `APOS_MONGODB_URI` to configure the URI where MongoDB is running.
 
 ---------------
 
