@@ -1,22 +1,21 @@
 version: '2'
 
 services:
+  mongodb:
+    image: 'bitnami/mongodb:latest'
+
   node:
     tty: true # Enables debugging capabilities when attached to this container.
     image: 'bitnami/node:latest'
-    labels:
-      kompose.service.type: nodeport
-    command: sh -c 'npm install && node app.js'
+    command: sh -c 'env && echo "$APOS_MONGODB_URI" && npm install && node app.js'
+    environment:
+      DATABASE_HOST: mongodb
+      DATABASE_PORT: 27017
+      APOS_MONGODB_URI: "mongodb://${DATABASE_HOST}:${DATABASE_PORT}"
     ports:
       - 3000:3000
     volumes:
       - .:/app
     depends_on:
       - mongodb
-    environment:
-      APOS_MONGODB_URI: 'mongodb://mongodb:27017'
-  mongodb:
-    tty: true
-    image: 'bitnami/mongodb'
-    ports:
-      - 27017:27017
+

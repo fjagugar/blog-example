@@ -1,6 +1,6 @@
-var path = require('path');
+const path = require('path');
 
-var apos = require('apostrophe')({
+const apos = require('apostrophe')({
   shortName: 'blog-example',
 
   // See lib/modules for basic project-level configuration of our modules
