@@ -2,16 +2,16 @@ version: '2'
 
 services:
   mongodb:
-    image: 'bitnami/mongodb'
-    # volumes:
-    #   - 'mongodb_data:/bitnami'
+    image: 'bitnami/mongodb:latest'
 
   node:
     tty: true # Enables debugging capabilities when attached to this container.
     image: 'bitnami/node:latest'
-    command: sh -c 'npm install && node app.js'
+    command: sh -c 'env && echo "$APOS_MONGODB_URI" && npm install && node app.js'
     environment:
-      APOS_MONGODB_URI: 'mongodb://mongodb:27017'
+      DATABASE_HOST: mongodb
+      DATABASE_PORT: 27017
+      APOS_MONGODB_URI: "mongodb://${DATABASE_HOST}:${DATABASE_PORT}"
     ports:
       - 3000:3000
     volumes:
@@ -19,6 +19,3 @@ services:
     depends_on:
       - mongodb
 
-# volumes:
-#   mongodb_data:
-#     driver: local

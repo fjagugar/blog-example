@@ -7,7 +7,6 @@ Based on Apostrophe Boilerplate v2.x, it's just a Node.js cms to use as sample p
 # TL;DR;
 
 ```bash
-$ curl -LO https://raw.githubusercontent.com/fjagugar/blog-example/master/docker-compose.yml
 $ docker-compose up
 ```
 
@@ -20,7 +19,7 @@ version: '2'
 
 services:
   mongodb:
-    image: 'bitnami/mongodb'
+    image: 'bitnami/mongodb:latest'
 
   node:
     tty: true
@@ -42,7 +41,7 @@ Launch the containers using:
 $ docker-compose up -d
 ```
 
-Once the CMS is running, you need create an admin user account so you're able to log into it. Run the command below to do so(this will prompt you for a password):
+Once the CMS is running, you need create an admin user account so you're able to log into it. Run the command below to do so (this will prompt you for a password):
 
 ```bash
 docker-compose exec node node app.js apostrophe-users:add admin admin
