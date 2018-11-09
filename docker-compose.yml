@@ -7,11 +7,11 @@ services:
   node:
     tty: true # Enables debugging capabilities when attached to this container.
     image: 'bitnami/node:latest'
-    command: sh -c 'env && echo "$APOS_MONGODB_URI" && npm install && node app.js'
+    command: sh -c 'npm install && node app.js'
     environment:
       DATABASE_HOST: mongodb
       DATABASE_PORT: 27017
-      APOS_MONGODB_URI: "mongodb://${DATABASE_HOST}:${DATABASE_PORT}"
+      APOS_MONGODB_URI: 'mongodb://mongodb:27017'
     ports:
       - 3000:3000
     volumes:
