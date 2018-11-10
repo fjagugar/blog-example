@@ -7,11 +7,34 @@
 
 {% block main %}
   <div class="main-content">
-    <h3>Hello world!
-      {% if not data.user %}
-        <a class="login-link" href="/login">Login</a>
-      {% endif %}
-    </h3>
-    <p>This is a very bare bones Apostrophe project. Now, get to work and make a real website!</p>
+    <div id=header" style='margin-bottom: 20px'>
+      <h3>My Blog!
+        {% if not data.user %}
+          <a class="login-link" href="/login">Login</a>
+        {% endif %}
+      </h3>
+      <p>Wellcome to my new Blog</p>
+    </div>
+    <div id='content1' class='content'>
+      {{ apos.singleton(data.page, 'textBlock1', 'apostrophe-rich-text', {
+        toolbar: [ 'Bold', 'Italic' ]
+      }) }}
+    </div>
+    <div id='content2' class='content'>
+      {{ apos.singleton(data.page, 'textBlock2', 'apostrophe-rich-text', {
+        toolbar: [ 'Bold', 'Italic' ]
+      }) }}
+    </div>
+    <div id='content3' class='content'>
+      {{ apos.singleton(data.page, 'textBlock3', 'apostrophe-rich-text', {
+        toolbar: [ 'Bold', 'Italic' ]
+      }) }}
+    </div>
+    <div class="section">
+      <h2>Introduce your html</h2>
+      <div id='content4' class='content'>
+        {{ apos.singleton(data.page, 'htmlArea', 'apostrophe-html', {}) }}
+      </div>
+    </div>
   </div>
 {% endblock %}
